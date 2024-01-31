@@ -1,0 +1,90 @@
+<div class="d-flex align-items-center justify-content-center">
+  <h2 *ngIf="item.Title" >{{item.Title}}</h2>
+</div>
+
+<div class="row justify-content-center d-flex">
+  <div class="col-md-8"></div>
+  <div class="col-md-1 d-flex">
+    <button (click)="shareOnFacebook()" class="btn">
+      <img src="assets/facebook.png" alt="Facebook" class="w-100 h-100"/>
+    </button>
+  </div>
+  <div class="col-md-1 d-flex">
+    <button class="btn btn-light" (click)="item.isInWishList ? removeToWishList(item) : addToWishList(item)">
+      <ng-container *ngIf="!item.isInWishList">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-cart-plus" viewBox="0 0 16 16">
+          <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+      </ng-container>
+      <ng-container *ngIf="item.isInWishList">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-cart-dash" viewBox="0 0 16 16">
+          <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
+          <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+        </svg>
+      </ng-container>
+    </button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5"></div>
+  <div class="col-md-6 mb-2 d-flex justify-content-end">
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'product'" (click)="setActiveTab('product')">Product</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'photos'" (click)="setActiveTab('photos')">Photos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'shipping'" (click)="setActiveTab('shipping')">Shipping</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'seller'" (click)="setActiveTab('seller')">Seller</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [class.active]="activeTab === 'similar'" (click)="setActiveTab('similar')">Similar Products</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+
+<div *ngIf="activeTab === 'product'">
+  <!-- Include the ProductTabComponent here -->
+  <app-product-tab></app-product-tab>
+</div>
+
+<div *ngIf="activeTab === 'photos'">
+  <!-- Include the PhotosTabComponent here -->
+  <app-photos-tab ></app-photos-tab>
+</div>
+
+<div *ngIf="activeTab === 'shipping'">
+  <!-- Include the ShippingTabComponent here -->
+  <app-shipping-tab></app-shipping-tab>
+</div>
+
+<div *ngIf="activeTab === 'seller'">
+  <!-- Include the SellerTabComponent here -->
+  <app-seller-tab ></app-seller-tab>
+</div>
+
+<div *ngIf="activeTab === 'similar'">
+  <!-- Include the SimilarProductsTabComponent here -->
+  <app-similar-products-tab ></app-similar-products-tab>
+</div>
+
+
+
+
+
+
+/*
+
+“How to create navbar using bootstrap in Angular” prompt (20 line). ChatGPT, 4 Sep. version, OpenAI, 11/1/2023, chat.openai.com/chat.
+
+*/

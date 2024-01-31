@@ -1,0 +1,22 @@
+.
+|-- form
+|   |-- form.component.css
+|   |-- form.component.html
+|   |-- form.component.spec.ts
+|   `-- form.component.ts
+|-- home
+|   |-- home.component.css
+|   |-- home.component.html
+|   |-- home.component.spec.ts
+|   `-- home.component.ts
+|-- app-routing.module.ts
+|-- app.component.css
+|-- app.component.html
+|-- app.component.spec.ts
+|-- app.component.ts
+|-- app.module.ts
+|-- file_structure.txt
+|-- home.service.spec.ts
+`-- home.service.ts
+
+3 directories, 17 files

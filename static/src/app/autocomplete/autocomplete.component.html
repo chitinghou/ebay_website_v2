@@ -1,0 +1,17 @@
+<!-- autocomplete.component.html -->
+<!--
+  <mat-form-field class="example-full-width">
+    <input type="text" matInput [formControl]="control" [matAutocomplete]="auto" />
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let suggestion of suggestions" (click)="onSelectSuggestion(suggestion)" [value]="suggestion">
+        {{ suggestion }}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field> -->
+
+<!-- autocomplete.component.html -->
+<div class="autocomplete">
+  <ul>
+    <li *ngFor="let suggestion of suggestions" (click)="onSelectSuggestion(suggestion)">{{ suggestion }}</li>
+  </ul>
+</div>

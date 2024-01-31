@@ -1,0 +1,24 @@
+<div class="container">
+  <div *ngFor="let product of similarProducts" class="row mb-2" >
+    <div class="col-3 d-flex justify-content-center align-items-center">
+      <img [src]="product.productImage" alt="Product Image" class="img-fluid" style="height: 100px;">
+    </div>
+    <div class="col-9">
+      <div class="card" style="height: 100%;">
+        <div class="card-body">
+          <a href="{{product.itemURL}}" target="_blank">
+            <h5 class="card-title text-1">{{ product.productName }}</h5>
+          </a>
+          <p class="card-text text-2">Price: ${{ product.price }}</p>
+          <p class="card-text text-3">Shipping Cost: ${{ product.shippingCost }}</p>
+          <p class="card-text text-light">Days Left: {{ product.daysLeft }} days</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="showNoResult">
+    <div class="container d-flex flex-column mt-2" style="width: 700px; height: 50px; background-color: rgb(249, 231, 187);">
+      <p style="color: rgb(53, 33, 33);" class="my-auto">No Records.</p>
+    </div>
+  </div>
+</div>

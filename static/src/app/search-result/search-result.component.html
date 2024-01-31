@@ -1,0 +1,146 @@
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div *ngIf="isLoading" class="progress">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="showResult">
+  <div *ngIf="showResultTable">
+    <div *ngIf="activeComponent === 'result'">
+      <div class="mb-2 row justify-content-center">
+        <div class="col-md-10"></div>
+        <div class="col-md-2 justify-content-end">
+          <button type="button" class="btn btn-light" (click)="showDetailRecord()" [disabled]="!selectedItem">
+            Detail
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray" class="bi bi-chevron-right" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="container">
+        <table class="table table-dark table-striped table-hover">
+          <!-- Table header -->
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Image</th>
+              <th>Title</th>
+              <th>Price</th>
+              <th>Shipping</th>
+              <th>Zip</th>
+              <th>Wish List</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Use *ngFor with getCurrentPageData to show only items for the current page -->
+            <tr *ngFor="let item of getCurrentPageData()" class="row-fixed-height">
+              <td>{{ item.Index }}</td>
+              <td class="d-flex justify-content-center align-items-center">
+                <a [href]="item.Image ? item.Image : 'default.jpg'" target="_blank">
+                  <img [src]="item.Image ? item.Image : 'default.jpg'" alt="{{ item.Title }}" class="img-crop w-100 h-100">
+                </a>
+              </td>
+              <td>
+                <a (click)=" selectItem(item)"  class="btn btn-link text-truncate max-width-class">
+                  {{ item.Title }}
+                </a>
+              </td>
+              <td>${{ item.Price }}</td>
+              <td>{{ item.Shipping }}</td>
+              <td>{{ item.Zip }}</td>
+              <td>
+                <button class="btn btn-light" (click)="item.isInWishList ? removeToWishList(item) : addToWishList(item)">
+                  <ng-container *ngIf="!item.isInWishList">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                      <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
+                  </ng-container>
+                  <ng-container *ngIf="item.isInWishList">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                      <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
+                      <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                    </svg>
+                  </ng-container>
+                </button>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination controls -->
+      <div class="d-flex justify-content-center">
+        <nav aria-label="Page navigation" class="mx-auto">
+          <ul class="pagination">
+            <li class="page-item" (click)="onPrevPage()">
+              <a class="page-link" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+                Previous
+              </a>
+            </li>
+            <li class="page-item" *ngFor="let page of getPaginationArray()" [ngClass]="{'active': page === currentPage}">
+              <a class="page-link" (click)="onPageChange(page)">{{ page }}</a>
+            </li>
+            <li class="page-item" (click)="onNextPage()">
+              <a class="page-link" aria-label="Next">
+                Next
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div *ngIf="activeComponent === 'detail'" >
+      <div class="row d-flex justify-content-center">
+        <button type="button" class="btn btn-outline-primary col-1" (click)="activeComponent = 'result'">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+          </svg>
+          List
+        </button>
+        <div class="col-9"></div>
+      </div>
+      <app-item-details *ngIf="showItemDetails && isDataLoaded" (close)="hideItemDetails()" [itemId]="itemId" [Index]="Index"></app-item-details>
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div *ngIf="showItemDetails && !isDataLoaded" class="progress">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 50%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="showNoResult">
+    <div class="container d-flex flex-column mt-2" style="width: 700px; height: 50px; background-color: rgb(249, 231, 187);">
+      <p style="color: rgb(53, 33, 33);" class="my-auto">No Records.</p>
+    </div>
+  </div>
+
+  <div *ngIf="detailRecord === true">
+    <button type="button" class="btn btn-outline-primary" (click)="activeComponent = 'result'; this.showResultTable = true; this.detailRecord = false;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+      </svg>
+      List
+    </button>
+    <app-item-details></app-item-details>
+  </div>
+</div>
+
+
+
+/*
+
+“How to let a button disabled using bootstrap in Angular” prompt (8 line). ChatGPT, 4 Sep. version, OpenAI, 11/1/2023, chat.openai.com/chat.
+
+*/

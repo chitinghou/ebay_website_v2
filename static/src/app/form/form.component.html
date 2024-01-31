@@ -1,0 +1,270 @@
+<div class="container mt-5 text-white p-2">
+  <form (ngSubmit)="onSubmit()" #searchForm="ngForm" class="needs-validation" novalidate [formGroup]="searchParams">
+    <!-- Keyword Input -->
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-center row">
+        <div class="col-sm-4">
+          <h2>Product Search</h2>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-center row">
+        <label for="keyword" class="col-sm-2">Keyword<span class="text-danger">*</span></label>
+        <div class="col-sm-4">
+          <input
+            type="text"
+            class="form-control"
+            id="keyword"
+            name="keyword"
+            formControlName="keyword"
+            placeholder="Enter Product Name (eg. iPhone 8)"
+            required
+            [ngClass]="{ 'is-invalid': searchParams.get('keyword')?.hasError('invalidKeyword') }"
+          />
+          <div class=" error-message" *ngIf="searchParams.get('keyword')?.hasError('invalidKeyword')&& searchParams.get('keyword')?.touched">
+            Please enter a keyword
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Category Select -->
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-center row">
+        <label for="category" class="col-sm-2">Category</label>
+
+        <div class="col-sm-2">
+          <select
+          class="form-select"
+            id="category"
+            name="category"
+            formControlName="category"
+          >
+            <option value="All Categories">All Categories</option>
+            <option value="550">Art</option>
+            <option value="2984">Baby</option>
+            <option value="267">Books</option>
+            <option value="11450">Clothing, Shoes & Accessories</option>
+            <option value="58058">Computers/Tablets & Networking</option>
+            <option value="26395">Health & Beauty</option>
+            <option value="11233">Music</option>
+            <option value="1249">Video Games & Consoles</option>
+          </select>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+
+<div class="form-group">
+  <div class="d-flex align-items-center justify-content-center row">
+    <label class="col-sm-2">Condition</label>
+    <div class="col-sm-4">
+      <div class="form-check form-check-inline">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="newCondition"
+          name="New"
+          value="New"
+          formControlName="New"
+        />
+        <label class="form-check-label" for="newCondition">New</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="usedCondition"
+          name="conditions"
+          value="Used"
+          formControlName="Used"
+        />
+        <label class="form-check-label" for="usedCondition">Used</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input
+          type="checkbox"
+          class="form-check-input"
+          id="unspecifiedCondition"
+          name="conditions"
+          value="Unspecified"
+          formControlName="Unspecified"
+        />
+        <label class="form-check-label" for="unspecifiedCondition">Unspecified</label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+    <!-- Shipping Options Checkboxes -->
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-center row">
+        <label class="col-sm-2">Shipping Options</label>
+        <div class="col-sm-4">
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="localPickup"
+              name="shippingOptions"
+              value="Local Pickup"
+              formControlName="localPickup"
+
+            />
+            <label class="form-check-label" for="localPickup">Local Pickup</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              type="checkbox"
+              class="form-check-input"
+              id="freeShipping"
+              name="shippingOptions"
+              value="Free Shipping"
+              formControlName="freeShipping"
+            />
+            <label class="form-check-label" for="freeShipping">Free Shipping</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Distance (Miles) Input -->
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-center row">
+        <label for="distance" class="col-sm-2">Distance (Miles)</label>
+        <div class="col-sm-2">
+          <input
+            type="number"
+            class="form-control"
+            id="distance"
+            name="distance"
+            formControlName="distance"
+            placeholder="10"
+            required
+          />
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+
+    <!-- Location Radio Buttons -->
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-center row">
+        <label class="col-sm-2">From<span class="text-danger">*</span></label>
+        <div class="col-sm-4">
+          <div class="form-check">
+            <input
+              type="radio"
+              class="form-check-input"
+              id="currentLocation"
+              name="locationOption"
+              value="current"
+              formControlName="locationOption"
+              (change)="onLocationOptionChange()"
+            />
+            <label class="form-check-label" for="currentLocation">Current Location</label>
+          </div>
+          <div class="form-check">
+            <input
+              type="radio"
+              class="form-check-input"
+              id="otherLocation"
+              name="locationOption"
+              value="other"
+              formControlName="locationOption"
+              (change)="onLocationOptionChange()"
+            />
+            <label class="form-check-label" for="otherLocation">Other. Please specift zip code:</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Other Location Input (Enabled when "Other Location" is selected) -->
+    <div class="form-group">
+      <div class="d-flex align-items-center justify-content-center row">
+        <label for="otherLocationInput" class="col-sm-2"></label>
+        <div class="col-sm-4 dropdown">
+          <input
+            type="text"
+            class="form-control"
+            id="otherLocationInput"
+            name="otherLocation"
+            formControlName="otherLocation"
+            placeholder="Enter location"
+            required
+            (input)="zipCodeSuggestion()"
+          />
+          <div class="bg-white text-dark shadow-lg rounded">
+            <ul *ngIf="suggestions.length > 0" class="list-unstyled m-0">
+              <li class=" mb-2" *ngFor="let suggestion of suggestions" (click)="onSuggestionsClick(suggestion)">{{ suggestion }}</li>
+            </ul>
+          </div>
+          <div class="error-message" *ngIf="searchParams.get('locationOption')?.value === 'other' && searchParams.get('otherLocation')?.invalid">
+            Please enter a zip code.
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Search and Clear Buttons -->
+    <div class="form-group mb-2">
+      <div class="d-flex align-items-center justify-content-center row">
+        <div class="col-sm-2">
+          <button type="submit" class="btn btn-light" [disabled]="(searchParams.get('locationOption')?.value === 'other' && searchParams.get('otherLocation')?.invalid) || searchParams.get('keyword')?.invalid || !isLocationObtained">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+              <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+            Search
+          </button>
+        </div>
+        <div class="col-sm-4">
+          <button type="button" class="btn btn-light ml-2 " (click)="onClear()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-nested" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M4.5 11.5A.5.5 0 0 1 5 11h10a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 3 7h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm-2-4A.5.5 0 0 1 1 3h10a.5.5 0 0 1 0 1H1a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            Clear
+          </button>
+        </div>
+
+
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="d-flex justify-content-center mb-2">
+  <button type="button " class="btn btn-light" [ngClass]="{'btn-dark': activeComponent === 'search', 'btn-light': activeComponent !== 'search'}" (click)="showResults()">
+    Results
+  </button>
+
+  <button type="button" class="btn btn-light" [ngClass]="{'btn-dark': activeComponent === 'wish', 'btn-light': activeComponent !== 'wish'}" (click)="showWishList()">
+    Wish List
+  </button>
+</div>
+  <div *ngIf="activeComponent === 'search'">
+    <app-search-result></app-search-result>
+  </div>
+
+  <div *ngIf="activeComponent === 'wish'">
+    <app-wish-list></app-wish-list>
+  </div>
+
+
+
+
+
+
+  /*
+
+  “How to create form using bootstrap in Angular” prompt (15 line). ChatGPT, 4 Sep. version, OpenAI, 11/1/2023, chat.openai.com/chat.
+
+  */

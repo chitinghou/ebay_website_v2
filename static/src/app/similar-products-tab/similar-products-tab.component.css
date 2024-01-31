@@ -1,0 +1,26 @@
+
+.row{
+  background-color: black;
+  border-radius: 5px;
+}
+.card{
+  background-color: black;
+  border: 0cm;
+}
+
+.card-text{
+  padding-bottom: 5px;
+}
+
+.text-1{
+  color: #aee4fc;
+}
+
+
+.text-2{
+  color: #bdfdcf;
+}
+
+.text-3{
+  color: #f0d76f;
+}

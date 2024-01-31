@@ -1,0 +1,34 @@
+
+<ng-container *ngIf="itemDetails">
+  <div class="container ">
+    <table class="table table-dark">
+      <tbody>
+        <tr>
+          <th scope="row">Product Images</th>
+          <td>
+            <a href="javascript:void(0);" (click)="openModal(itemDetails.productImages[0])">View Product Images</a>
+          </td>
+        </tr>
+        <tr>
+          <th scope="row">Price</th>
+          <td>${{ itemDetails.Price }}</td>
+        </tr>
+        <tr>
+          <th scope="row">Location</th>
+          <td>{{ itemDetails.Location }}</td>
+        </tr>
+        <tr *ngFor="let itemSpecific of itemDetails.ItemSpecifics">
+          <th scope="row">{{ itemSpecific.name }}</th>
+          <td>{{ itemSpecific.value }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-container *ngIf="showModal">
+    <app-image-model [itemDetails]="itemDetails" (closeModalEvent)="close()" [showModal] ="showModal"  [currentImage]="currentImage"></app-image-model>
+  </ng-container>
+
+</ng-container>
+
+

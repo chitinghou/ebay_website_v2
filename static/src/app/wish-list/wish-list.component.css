@@ -1,0 +1,6 @@
+.max-width-class {
+  max-width: 300px; /* Adjust the maximum width as needed */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

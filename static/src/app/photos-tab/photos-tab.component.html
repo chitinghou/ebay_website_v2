@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row">
+    <!-- Loop through chunks of images -->
+    <div *ngFor="let chunk of chunks" class="col-4">
+      <!-- Loop through each image in the chunk -->
+      <div *ngFor="let thumbnailLink of chunk" class="mb-3">
+        <div class="card border border-dark rounded-0 border-5">
+          <a target="_blank" [href]="thumbnailLink">
+            <img [src]="thumbnailLink" class="card-img-top" alt="Image">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

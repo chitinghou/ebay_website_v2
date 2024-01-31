@@ -1,0 +1,40 @@
+
+
+.modal {
+  display: none; /* Hide the modal by default */
+  position: fixed; /* Position the modal relative to the viewport */
+  z-index: 1; /* Set the z-index to make sure the modal appears on top of other elements */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scrolling if the content is too long */
+  background-color: rgba(0, 0, 0, 0.4); /* Black background with opacity */
+}
+
+.fade {
+  opacity: 0; /* Set the initial opacity to 0 */
+  transition: opacity 0.2s ease-out; /* Add a transition effect */
+}
+
+.show {
+  display: block; /* Show the modal */
+  opacity: 1; /* Set the opacity to 1 */
+}
+
+
+  .fixed-size-modal-content {
+    width: 500px;
+    height: 600px;
+    margin: auto;
+  }
+
+  .fixed-size-image {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  .modal-nav-button {
+    align-self: center;
+  }
